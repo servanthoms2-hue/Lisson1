@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة الآحاد والعشرات الذكية</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 5px solid #ffcc00;
+        }
+        h1 { color: #ff6600; font-size: 24px; }
+        .number-display {
+            font-size: 60px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            padding: 10px;
+            background: #eee;
+            border-radius: 15px;
+        }
+        .inputs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 5px; color: #555; }
+        input {
+            width: 60px;
+            height: 50px;
+            font-size: 24px;
+            text-align: center;
+            border: 3px solid #00aeef;
+            border-radius: 10px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #45a049; }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 20px;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏠 بيت الآحاد والعشرات</h1>
+    <p>ما هي مكونات هذا الرقم؟</p>
+    
+    <div id="number" class="number-display">--</div>
+
+    <div class="inputs">
+        <div class="input-group">
+            <label>العشرات</label>
+            <input type="number" id="tensInput" placeholder="؟">
+        </div>
+        <div class="input-group">
+            <label>الآحاد</label>
+            <input type="number" id="onesInput" placeholder="؟">
+        </div>
+    </div>
+
+    <button onclick="checkAnswer()">تحقق من إجابتي! ✨</button>
+    <button onclick="generateNumber()" style="background-color: #00aeef;">رقم جديد 🎲</button>
+
+    <div id="message"></div>
+</div>
+
+<script>
+    let currentNumber = 0;
+
+    function generateNumber() {
+        // توليد رقم عشوائي بين 10 و 99
+        currentNumber = Math.floor(Math.random() * 90) + 10;
+        document.getElementById('number').innerText = currentNumber;
+        document.getElementById('message').innerText = "";
+        document.getElementById('onesInput').value = "";
+        document.getElementById('tensInput').value = "";
+        document.getElementById('message').style.color = "black";
+    }
+
+    function checkAnswer() {
+        const userOnes = document.getElementById('onesInput').value;
+        const userTens = document.getElementById('tensInput').value;
+        
+        const correctOnes = currentNumber % 10;
+        const correctTens = Math.floor(currentNumber / 10);
+
+        const msg = document.getElementById('message');
+
+        if (userOnes == correctOnes && userTens == correctTens) {
+            msg.innerText = "أحسنت يا بطل! إجابة صحيحة 🌟👏";
+            msg.style.color = "green";
+        } else {
+            msg.innerText = "حاول مرة أخرى، أنت تستطيع! 💪";
+            msg.style.color = "red";
+        }
+    }
+
+    // تشغيل رقم عند البدء
+    generateNumber();
+</script>
+
+</body>
+</html>
